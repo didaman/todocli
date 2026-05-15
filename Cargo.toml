@@ -2,5 +2,13 @@
 name = "todocli"
 version = "0.1.0"
 edition = "2024"
+# 关闭自动发现 bin，否则仍会生成与包名相同的 todocli 可执行文件
+autobins = false
+
+[[bin]]
+name = "todo"
+path = "src/main.rs"
 
 [dependencies]
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json = "1.0.149"
