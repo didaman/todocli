@@ -1,14 +1,22 @@
+use core::fmt;
 use std::fs;
 use std::error::Error;
 use std::io::ErrorKind;
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 struct Task{
     id: u32,
     task_name: String,
     is_done: bool,
 }
+
+impl fmt::Display for Task{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}. {}",self.id, self.title)
+    }
+}
+
 
 fn load_or_init_tasks() -> Result<Vec<Task>, Box<dyn Error>>{
     let task_file_path = "./task.json";
@@ -51,7 +59,7 @@ pub fn add_task(task_name: &str) -> Result<(), Box<dyn Error>> {
 pub fn show_task() -> Result<(), Box<dyn Error>>{
     let all_tasks = load_or_init_tasks()?;
     for task in all_tasks.iter(){
-        println!("{:?}",task);
+        println!("{}",task);
     }
     Ok(())
 }
