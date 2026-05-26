@@ -13,7 +13,7 @@ struct Task{
 
 impl fmt::Display for Task{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}. {}",self.id, self.title)
+        write!(f, "{}. {}",self.id, self.task_name)
     }
 }
 
