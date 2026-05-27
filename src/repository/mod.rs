@@ -10,3 +10,6 @@ pub(crate) trait TaskRepository {
 
 pub(crate) mod json;
 pub(crate) use json::JsonTaskRepository;
+
+pub(crate) mod sqlite;
+pub(crate) use sqlite::SqliteTaskRepository;

@@ -1,7 +1,7 @@
 mod repository;
 mod task;
 
-use crate::repository::{JsonTaskRepository, TaskRepository};
+use crate::repository::{JsonTaskRepository, SqliteTaskRepository, TaskRepository};
 use std::error::Error;
 
 pub enum Command {
@@ -68,7 +68,10 @@ impl Config {
 }
 
 pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
-    let repository = JsonTaskRepository::new();
+    let repository: Box<dyn TaskRepository> = match std::env::var("TODOCLI_STORAGE").as_deref() {
+        Ok("json") => Box::new(JsonTaskRepository::new()),
+        _ => Box::new(SqliteTaskRepository::new()),
+    };
 
     match config.command {
         Command::List => {
